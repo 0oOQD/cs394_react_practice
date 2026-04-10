@@ -1,6 +1,12 @@
+const schedules = {
+  "CS-2018-2019": {
+    title: 'CS Courses for 2018-2019'
+  }
+}
+
 const App = () => (
   <main>
-    <h1>A starter page</h1>
+    <h1>{schedules['CS-2018-2019'].title}</h1>
   </main>
 );
 
