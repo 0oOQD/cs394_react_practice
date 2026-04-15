@@ -1,12 +1,6 @@
 import Banner from './components/Banner';
 import CourseList from './components/CourseList';
 
-// const schedules = {
-//   "CS-2018-2019": {
-//     title: 'CS Courses for 2018-2019'
-//   }
-// }
-
 const schedules = {
     "CS-2018-2019": {
       title: 'CS Courses for 2018-2019',
@@ -39,12 +33,6 @@ const schedules = {
     }
   };
   
-// const App = () => (
-//   <main>
-//     <h1>{schedules['CS-2018-2019'].title}</h1>
-//   </main>
-// );
-
 const App = () => {
   const schedule = schedules["CS-2018-2019"]
   return(
