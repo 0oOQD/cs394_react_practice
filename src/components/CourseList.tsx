@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import CourseCard from './CourseCard';
 import CoursePlanModal from './CoursePlanModal';
+import { coursesConflict } from '../utilities/timeConflict';
 
 export interface Course {
     term: string;
@@ -34,6 +35,13 @@ const CourseList = ({ courses, selectedTerm }: CoursesProps) => {
             toggleList(courseId, selectedCourseIds));
     };
 
+    const selectedCourses = selectedCourseIds.map(id => courses[id]);
+
+    const isConflicting = (courseId: string): boolean => {
+        if (selectedCourseIds.includes(courseId)) return false;
+        return selectedCourses.some(selected => coursesConflict(selected, courses[courseId]));
+    };
+
     const [coursePlanOpen, setCoursePlanOpen] = useState(false);
 
     return (
@@ -47,7 +55,8 @@ const CourseList = ({ courses, selectedTerm }: CoursesProps) => {
             {
                 filteredCourses.map(([id, course]) => (
                     <CourseCard key={id} courseId={id} course={course}
-                        isSelected={selectedCourseIds.includes(id)} 
+                        isSelected={selectedCourseIds.includes(id)}
+                        isDisabled={isConflicting(id)}
                         onToggle={toggleCourse} />
                 ))
             }
