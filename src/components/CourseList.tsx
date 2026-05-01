@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import CourseCard from './CourseCard';
 import CoursePlanModal from './CoursePlanModal';
+import { coursesConflict } from '../utilities/timeConflict';
 
 export interface Course {
     term: string;
@@ -36,6 +37,12 @@ const CourseList = ({ courses, selectedTerm }: CoursesProps) => {
 
     const [coursePlanOpen, setCoursePlanOpen] = useState(false);
 
+    const isDisabled = (id: string): boolean => {
+        if (selectedCourseIds.includes(id)) {return false;}
+        return selectedCourseIds.some(selectedId => 
+            coursesConflict(courses[selectedId], courses[id]))
+    };
+
     return (
         <div>
             <div className="flex justify-end">
@@ -48,6 +55,7 @@ const CourseList = ({ courses, selectedTerm }: CoursesProps) => {
                 filteredCourses.map(([id, course]) => (
                     <CourseCard key={id} courseId={id} course={course}
                         isSelected={selectedCourseIds.includes(id)} 
+                        isDisabled={isDisabled(id)}
                         onToggle={toggleCourse} />
                 ))
             }

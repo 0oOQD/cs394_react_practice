@@ -4,11 +4,12 @@ interface CourseCardProps {
   courseId: string;
   course: Course;
   isSelected: boolean;
+  isDisabled: boolean;
   onToggle: (courseId: string) => void;
 }
 
-const CourseCard = ({ courseId, course, isSelected, onToggle }: CourseCardProps) => (
-    <div className="relative">
+const CourseCard = ({ courseId, course, isSelected, isDisabled, onToggle }: CourseCardProps) => (
+    <div className={`relative ${isDisabled ? 'opacity-25 cursor-not-allowed' : ''}`}>
         <div className={`flex flex-col justify-items-start h-55 w-50 p-5 m-2 border-2 border-gray-300 rounded-lg 
             ${ isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-300'}
         `}>
@@ -25,8 +26,10 @@ const CourseCard = ({ courseId, course, isSelected, onToggle }: CourseCardProps)
         </div>
         <input 
             type="checkbox" 
+            checked={isSelected}
+            disabled={isDisabled}
             onChange={() => onToggle(courseId)}
-                className="absolute top-5 left-45 z-10 border-2 border-white rounded-sm checked:bg-blue-500 checked:border-blue-500" 
+                className="absolute top-5 left-45 z-10 border-2 border-white rounded-sm checked:bg-blue-500 checked:border-blue-500 disabled:cursor-not-allowed" 
         />
     </div>
 );
