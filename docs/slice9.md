@@ -6,6 +6,8 @@ Add a form that contains text input fields for the title and meeting times for a
 
 Don't worry about form submission. There should be a Cancel button, but no Submit button. The form should have an onSubmit() method that does nothing. Clicking the Cancel button should return the user to the main course list.
 
+The `@tanstack/react-router` must be used for creating the form.
+
 ------
 
 The following code shows an example from a different project that should be used as reference. Follow the coding style used in this example when producing the answer. 
