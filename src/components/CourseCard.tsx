@@ -9,15 +9,14 @@ interface CourseCardProps {
   onToggle: (courseId: string) => void;
 }
 
-interface FormStateProps {
-    courseId: string;
-    course: Course;
+declare module '@tanstack/react-router' {
+  interface HistoryState {
+    courseId?: string;
+    course?: Course;
+  }
 }
 
 const CourseCard = ({ courseId, course, isSelected, isDisabled, onToggle }: CourseCardProps) => {
-    const formState: FormStateProps = { courseId: courseId, course: course};
-    // console.log(typeof formState);
-
     return( 
         <div className={`relative ${isDisabled ? 'opacity-25 cursor-not-allowed' : ''}`}>
             <div className={`flex flex-col justify-items-start h-60 w-50 p-5 m-2 border-2 border-gray-300 rounded-lg 
@@ -44,7 +43,7 @@ const CourseCard = ({ courseId, course, isSelected, isDisabled, onToggle }: Cour
             <div className="absolute bottom-5 right-5">
                 <Link 
                     to="/form/course"
-                    state={formState}
+                    state={{ courseId: courseId, course: course}}
                     className="ml-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-semibold" 
                 >
                     Edit
