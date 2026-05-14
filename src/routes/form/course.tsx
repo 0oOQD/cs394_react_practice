@@ -10,10 +10,8 @@ const RouteComponent = () => {
     <div>
         <form onSubmit={() => {}}>
             <div className="m-5">
-                <CourseEditor type="text" name="courseid" label="Course ID" value={courseId} />
+                <input type="text" name="courseid" value={courseId} className="hidden" />
                 <CourseEditor type="text" name="title" label="Course Title" value={course.title} />
-                <CourseEditor type="text" name="term" label="Term" value={course.term} />
-                <CourseEditor type="text" name="number" label="Course Number" value={course.number} />
                 <CourseEditor type="text" name="meets" label="Meeting Times" value={course.meets} />
             </div>
             <div className="m-3 mb-7">
@@ -25,7 +23,6 @@ const RouteComponent = () => {
                 </Link>
             </div>
         </form>
-        <input type="text" name="author" />
     </div>
     
     // <div>Hello "/form/course"! {courseId} {JSON.stringify(course)}</div>
