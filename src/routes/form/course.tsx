@@ -11,8 +11,8 @@ const RouteComponent = () => {
         <form onSubmit={() => {}}>
             <div className="m-5">
                 <input type="text" name="courseid" value={courseId} className="hidden" />
-                <CourseEditor type="text" name="title" label="Course Title" value={course.title} />
-                <CourseEditor type="text" name="meets" label="Meeting Times" value={course.meets} />
+                <CourseEditor type="text" name="title" label="Course Title" value={course ? course.title : ""} />
+                <CourseEditor type="text" name="meets" label="Meeting Times" value={course ? course.meets : ""} />
             </div>
             <div className="m-3 mb-7">
                 <Link 
