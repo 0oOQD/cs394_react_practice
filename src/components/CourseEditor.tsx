@@ -1,19 +1,49 @@
+import { Link } from '@tanstack/react-router'
+import { useForm, type SubmitHandler, type SubmitErrorHandler } from 'react-hook-form';
+import {courseResolver, type Course} from '../types/courses';
+import CourseField from './CourseField';
+
 interface CourseEditorProps {
-    type: string;
-    name: string;
-    label: string;
-    value: string | number;
+    course: Course;
 }
 
-const CourseEditor = ({type, name, label, value}: CourseEditorProps) => {
+const CourseEditor = ({course}:CourseEditorProps) => {
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<Course>({
+        defaultValues: course,
+        mode: 'onChange',
+        resolver: courseResolver 
+    });
+
+    const onSubmit: SubmitHandler<Course> = async(data) => {
+        alert(`Submitting ${JSON.stringify(data)}`)
+        // Simulate a 2-second API call
+        await new Promise(resolve => setTimeout(resolve, 2000));
+    };
+
+    const onError: SubmitErrorHandler<Course> = () => {
+        alert('Submissions prevented due to form errors')
+    };
+
     return (
-        <div className="m-5">
-            <p className="text-lg font-bold">{label}</p>
-            <input type={type} name={name} defaultValue={value} onChange={() => {}}
-                className={`w-full rounded border border-gray-300 bg-inherit p-3 shadow shadow-gray-100 mt-2 appearance-none outline-none text-neutral-80`}
-            />
-        </div>
-    )
-}
+        <form onSubmit={handleSubmit(onSubmit, onError)}>
+            <div className="m-5">
+                <input type="text" {...register('id')} className="hidden" />
+                <CourseField name="term" label="Term" errors={errors} register={register} />
+                <CourseField name="number" label="Course Number" errors={errors} register={register} />
+                <CourseField name="meets" label="Meeting Times" errors={errors} register={register} />
+                <CourseField name="title" label="Course Title" errors={errors} register={register} />
+            </div>
+            <div className="m-3 mb-7">
+                <Link 
+                    to="/"
+                    disabled={isSubmitting}
+                    className="ml-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-semibold" 
+                >
+                    Cancel
+                </Link>
+            </div>
+        </form>
+    );
+};
 
 export default CourseEditor;
